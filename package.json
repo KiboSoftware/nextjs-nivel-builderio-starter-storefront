@@ -22,6 +22,7 @@
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
+    "@builder.io/react": "^2.0.9",
     "@emotion/cache": "latest",
     "@emotion/css": "latest",
     "@emotion/react": "latest",
