@@ -41,8 +41,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const product = await getProduct(productCode)
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
-  const sections = await builder.getAll('kibosection')
-  const section = sections.find((section:any) => section?.data?.slug === productCode)
+  const section = await builder
+    .get('kibosection', { userAttributes: { slug: productCode } })
+    .promise()
 
   return {
     props: {
