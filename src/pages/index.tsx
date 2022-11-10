@@ -4,7 +4,6 @@ import getConfig from 'next/config'
 
 import nextI18NextConfig from '../../next-i18next.config'
 import KiboHeroCarousel from '@/components/home/Carousel/KiboHeroCarousel'
-import CmsHomePageProducts from '@/components/home/CmsHomePageProducts/CmsHomePageProducts'
 import ContentTile from '@/components/home/ContentTile/ContentTile'
 import SmallBanner from '@/components/home/SmallBanner/SmallBanner'
 import { FullWidthLayout } from '@/components/layout'
