@@ -2,6 +2,7 @@ import { BuilderComponent, builder, Builder } from '@builder.io/react'
 import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
 import { homePageResultMock } from '@/__mocks__/stories'
 import KiboHeroCarousel from '@/components/home/Carousel/KiboHeroCarousel'
 import ContentTile from '@/components/home/ContentTile/ContentTile'
