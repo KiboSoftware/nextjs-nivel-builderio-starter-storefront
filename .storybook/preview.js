@@ -11,7 +11,7 @@ import { publicRuntimeConfig } from '../next.config'
 import storefrontTheme from '../styles/theme'
 import i18n from './i18n'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
-import '../styles/index.css'
+import '../styles/global.css'
 
 setConfig({ publicRuntimeConfig })
 
