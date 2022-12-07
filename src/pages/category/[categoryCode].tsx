@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { BuilderComponent, builder, Builder } from '@builder.io/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 
 import { ProductListingTemplate } from '@/components/page-templates'
+import { CategorySlider } from '@/components/product-listing'
 import { useProductSearchQueries } from '@/hooks'
 import { productSearch, categoryTreeSearchByCode } from '@/lib/api/operations'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
@@ -21,6 +23,21 @@ interface CategoryPageType {
   category: { categories: PrCategory[] }
 }
 
+const { publicRuntimeConfig } = getConfig()
+const builderIOApiKey = publicRuntimeConfig?.builderIO?.apiKey
+
+builder.init(builderIOApiKey)
+
+Builder.registerComponent(CategorySlider, {
+  name: 'CategorySlider',
+  inputs: [
+    {
+      name: 'categoryCodes',
+      type: 'KiboCommerceCategoriesList',
+    },
+  ],
+})
+
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
@@ -32,17 +49,26 @@ export const getServerSideProps: GetServerSideProps = async (
 
   res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
 
+  const section =
+    (await builder
+      .get('category-section', {
+        userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
+      })
+      .promise()) || null
+
   return {
     props: {
       results: response?.data?.products || [],
       categoriesTree,
       category,
+      section,
       ...(await serverSideTranslations(locale as string, ['common'], nextI18NextConfig)),
     },
   }
 }
 
-const CategoryPage: NextPage<CategoryPageType> = (props) => {
+const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
+  const { section } = props
   const router = useRouter()
   const { publicRuntimeConfig } = getConfig()
 
@@ -119,7 +145,9 @@ const CategoryPage: NextPage<CategoryPageType> = (props) => {
         appliedFilters={appliedFilters as FacetValue[]}
         onSortItemSelection={changeSorting}
         onPaginationChange={changePagination}
-      />
+      >
+        {section && <BuilderComponent model="category-section" content={section} />}
+      </ProductListingTemplate>
     </>
   )
 }
