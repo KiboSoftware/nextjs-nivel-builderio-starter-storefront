@@ -1,5 +1,6 @@
 import React from 'react'
 
+import getConfig from 'next/config'
 import Carousel from 'react-elastic-carousel'
 
 import { ProductCard } from '@/components/product'
@@ -13,15 +14,11 @@ export interface CategorySliderProps {
 
 const CategorySlider = (props: CategorySliderProps) => {
   const { categoryCodes } = props
+  const { publicRuntimeConfig } = getConfig()
   const { getCategoryLink } = uiHelpers()
   const { data: categorySearchResult } = useCategorySearchQueries(categoryCodes)
   const categories = categorySearchResult?.items
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2 },
-    { width: 768, itemsToShow: 4 },
-    { width: 1200, itemsToShow: 5 },
-  ]
+  const breakPoints = publicRuntimeConfig?.builderIO?.breakPoints
 
   return (
     <>
