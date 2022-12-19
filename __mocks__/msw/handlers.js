@@ -7,6 +7,7 @@ import {
   returnReasonsMock,
   createReturnMock,
   checkoutMock,
+  categorySearchResultMock,
 } from '../stories'
 import { cartItemMock } from '../stories/cartItemMock'
 import { cartCouponMock, cartMock } from '../stories/cartMock'
@@ -175,6 +176,12 @@ export const categoryHandlers = [
   }),
 ]
 
+export const categorySearchHandlers = [
+  graphql.query('getCategories', (_req, res, ctx) => {
+    return res(ctx.data({ searchResult: categorySearchResultMock }))
+  }),
+]
+
 export const productSearchHandlers = [
   // useProductSearch
   graphql.query('ProductSearch', (_req, res, ctx) => {
@@ -318,4 +325,5 @@ export const handlers = [
   ...accountHandlers,
   ...orderHandlers,
   ...inventoryHandlers,
+  ...categorySearchHandlers,
 ]
