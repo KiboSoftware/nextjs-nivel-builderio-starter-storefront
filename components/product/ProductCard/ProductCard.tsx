@@ -33,6 +33,7 @@ export interface ProductCardProps {
   isShowWishlistIcon?: boolean
   product?: Product
   showQuickViewButton?: boolean
+  showProuductRating?: boolean
   onAddOrRemoveWishlistItem?: () => void
   onClickQuickViewModal?: () => void
 }
@@ -90,6 +91,7 @@ const ProductCard = (props: ProductCardProps) => {
     isShowWishlistIcon = true,
     onAddOrRemoveWishlistItem,
     showQuickViewButton = false,
+    showProuductRating = true,
     onClickQuickViewModal,
   } = props
 
@@ -149,16 +151,18 @@ const ProductCard = (props: ProductCardProps) => {
                   priceRange={productPriceRange}
                   variant="body1"
                 />
-                <Rating
-                  name="read-only"
-                  value={rating}
-                  precision={0.5}
-                  readOnly
-                  size="small"
-                  icon={<StarRounded color="primary" data-testid="filled-rating" />}
-                  emptyIcon={<StarRounded data-testid="empty-rating" />}
-                  data-testid="product-rating"
-                />
+                {showProuductRating && (
+                  <Rating
+                    name="read-only"
+                    value={rating}
+                    precision={0.5}
+                    readOnly
+                    size="small"
+                    icon={<StarRounded color="primary" data-testid="filled-rating" />}
+                    emptyIcon={<StarRounded data-testid="empty-rating" />}
+                    data-testid="product-rating"
+                  />
+                )}
                 {showQuickViewButton && (
                   <Button
                     variant="contained"

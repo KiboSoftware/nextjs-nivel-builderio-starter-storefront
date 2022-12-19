@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { BuilderComponent, builder, Builder } from '@builder.io/react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { ProductListingTemplate } from '@/components/page-templates'
+import { CategorySlider } from '@/components/product-listing'
 import { useProductSearchQueries } from '@/hooks'
 import { productSearch, categoryTreeSearchByCode } from '@/lib/api/operations'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
@@ -31,12 +33,21 @@ export async function getStaticPaths() {
     }
     return categoryCodes
   }
-
-  const categoriesTree: CategoryTreeResponse = await getCategoryTree()
-  const getAllCategoryCodes = (categoryTree: any) => categoryTree.flatMap((c: any) => walk(c))
-  const paths = getAllCategoryCodes(categoriesTree).map((code: string) => `/category/${code}`)
-  return { paths, fallback: true }
 }
+const { publicRuntimeConfig } = getConfig()
+const builderIOApiKey = publicRuntimeConfig?.builderIO?.apiKey
+
+builder.init(builderIOApiKey)
+
+Builder.registerComponent(CategorySlider, {
+  name: 'CategorySlider',
+  inputs: [
+    {
+      name: 'categoryCodes',
+      type: 'KiboCommerceCategoriesList',
+    },
+  ],
+})
 
 export const getStaticProps: any = async (context: any) => {
   const { locale } = context
@@ -45,11 +56,19 @@ export const getStaticProps: any = async (context: any) => {
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
   const category = await categoryTreeSearchByCode(context.params)
 
+  const section =
+    (await builder
+      .get('category-section', {
+        userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
+      })
+      .promise()) || null
+
   return {
     props: {
       results: response?.data?.products || [],
       categoriesTree,
       category,
+      section,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
     revalidate: 60,
@@ -57,6 +76,7 @@ export const getStaticProps: any = async (context: any) => {
 }
 
 const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
+  const { section } = props
   const router = useRouter()
   const { publicRuntimeConfig } = getConfig()
 
@@ -119,20 +139,24 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
   }, [router.query])
 
   return (
-    <ProductListingTemplate
-      productListingHeader={categoryPageHeading as string}
-      categoryFacet={categoryFacet}
-      facetList={facetList}
-      sortingValues={sortingValues}
-      products={products}
-      totalResults={productSearchResult?.totalCount}
-      pageSize={productSearchResult?.pageSize}
-      breadCrumbsList={breadcrumbs}
-      isLoading={isFetching}
-      appliedFilters={appliedFilters as FacetValue[]}
-      onSortItemSelection={changeSorting}
-      onPaginationChange={changePagination}
-    />
+    <>
+      <ProductListingTemplate
+        productListingHeader={categoryPageHeading as string}
+        categoryFacet={categoryFacet}
+        facetList={facetList}
+        sortingValues={sortingValues}
+        products={products}
+        totalResults={productSearchResult?.totalCount}
+        pageSize={productSearchResult?.pageSize}
+        breadCrumbsList={breadcrumbs}
+        isLoading={isFetching}
+        appliedFilters={appliedFilters as FacetValue[]}
+        onSortItemSelection={changeSorting}
+        onPaginationChange={changePagination}
+      >
+        {section && <BuilderComponent model="category-section" content={section} />}
+      </ProductListingTemplate>
+    </>
   )
 }
 

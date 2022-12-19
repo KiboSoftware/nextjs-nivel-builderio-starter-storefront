@@ -83,7 +83,7 @@ const getProductGallery = (product: Product | ProductCustom) => {
 const getProductImage = (product: CrProduct): string => product?.imageUrl || DefaultImage
 
 const handleProtocolRelativeUrl = (url: string) => {
-  if (typeof url === 'string' && !url.startsWith('http')) {
+  if (url && typeof url === 'string' && !url.startsWith('https')) {
     return `https:${url}`
   }
   return url

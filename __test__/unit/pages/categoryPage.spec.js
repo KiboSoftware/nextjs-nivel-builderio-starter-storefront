@@ -69,6 +69,9 @@ jest.mock('next/config', () => {
         ],
         pageSize: 16,
       },
+      builderIO: {
+        apiKey: 'builder_api_key',
+      },
     },
     serverRuntimeConfig: {
       cacheKey: 'categoryTree',
@@ -95,6 +98,7 @@ describe('[page] Category Page', () => {
         category: {
           categories: [mockCategoryTreeByCode],
         },
+        section: null,
         _nextI18Next: {
           initialI18nStore: { 'mock-locale': [{}], en: [{}] },
           initialLocale: 'mock-locale',

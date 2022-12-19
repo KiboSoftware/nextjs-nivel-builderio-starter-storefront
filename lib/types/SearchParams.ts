@@ -14,3 +14,9 @@ export interface LocationSearchParams {
   zipcode?: string
   currentLocation?: GeoCoords
 }
+
+export interface CategoryPagedCollectionParams {
+  startIndex?: number
+  pageSize?: number
+  filter?: string
+}

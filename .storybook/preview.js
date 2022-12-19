@@ -11,6 +11,7 @@ import { publicRuntimeConfig } from '../next.config'
 import storefrontTheme from '../styles/theme'
 import i18n from './i18n'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
+import '../styles/global.css'
 
 setConfig({ publicRuntimeConfig })
 
@@ -66,6 +67,7 @@ export const parameters = {
       orders: [...handlers.orderHandlers],
       wishlist: [...handlers.wishlistHandlers],
       productSearch: [...handlers.productSearchHandlers],
+      searchResult: [...handlers.categorySearchHandlers],
       inventory: [...handlers.inventoryHandlers],
       subscriptions: [...handlers.subscriptionHandlers],
     },

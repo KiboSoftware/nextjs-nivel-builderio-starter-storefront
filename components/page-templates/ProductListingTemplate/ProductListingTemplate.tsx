@@ -41,6 +41,7 @@ export interface ProductListingTemplateProps {
   onPaginationChange: () => void
   showQuickViewButton?: boolean
   isQuickViewModal?: boolean
+  children?: any
 }
 
 const styles = {
@@ -192,6 +193,7 @@ const ProductListingTemplate = (props: ProductListingTemplateProps) => {
     onSortItemSelection,
     onPaginationChange,
     showQuickViewButton = true,
+    children,
   } = props
   const { getProductLink } = uiHelpers()
   const { updateRoute } = useUpdateRoutes()
@@ -238,7 +240,7 @@ const ProductListingTemplate = (props: ProductListingTemplateProps) => {
       <Box sx={{ ...styles.breadcrumbsClass }}>
         <KiboBreadcrumbs breadcrumbs={breadCrumbsList} />
       </Box>
-
+      {children}
       {!showFilterBy && (
         <Box>
           <FullWidthDivider />

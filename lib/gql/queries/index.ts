@@ -22,3 +22,4 @@ export { default as getSubscriptionsQuery } from './subscription/get-subscriptio
 export { default as getMultiShipCheckoutQuery } from './checkout/get-multi-ship-checkout-query'
 export { default as getCheckoutShippingMethodsQuery } from './checkout/get-multi-ship-checkout-shipping-methods'
 export { default as getProductPriceQuery } from './get-product-price'
+export { default as categorySearchQuery } from './category-search'
