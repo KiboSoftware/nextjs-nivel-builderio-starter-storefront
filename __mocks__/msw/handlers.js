@@ -8,6 +8,7 @@ import {
   createReturnMock,
   checkoutMock,
   orderSubscriptionNowMock,
+  categorySearchResultMock,
 } from '../stories'
 import { cartItemMock } from '../stories/cartItemMock'
 import { cartCouponMock, cartMock } from '../stories/cartMock'
@@ -181,6 +182,12 @@ export const searchSuggestionHandlers = [
 export const categoryHandlers = [
   rest.get(`${baseUrl}/api/category-tree`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(categoryTreeDataMock.categoriesTree.items))
+  }),
+]
+
+export const categorySearchHandlers = [
+  graphql.query('getCategories', (_req, res, ctx) => {
+    return res(ctx.data({ searchResult: categorySearchResultMock }))
   }),
 ]
 
@@ -371,4 +378,5 @@ export const handlers = [
   ...orderHandlers,
   ...inventoryHandlers,
   ...subscriptionHandlers,
+  ...categorySearchHandlers,
 ]

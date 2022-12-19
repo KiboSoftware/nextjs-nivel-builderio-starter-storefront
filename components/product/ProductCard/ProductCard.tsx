@@ -30,6 +30,7 @@ export interface ProductCardProps {
   isShowWishlistIcon?: boolean
   product?: Product
   showQuickViewButton?: boolean
+  showProuductRating?: boolean
   onAddOrRemoveWishlistItem?: () => void
   onClickQuickViewModal?: () => void
 }
@@ -86,6 +87,7 @@ const ProductCard = (props: ProductCardProps) => {
     isShowWishlistIcon = true,
     onAddOrRemoveWishlistItem,
     showQuickViewButton = false,
+    showProuductRating = true,
     onClickQuickViewModal,
   } = props
 
@@ -112,55 +114,57 @@ const ProductCard = (props: ProductCardProps) => {
                     <FavoriteRoundedIcon sx={{ color: 'red.900' }} />
                   ) : (
                     <FavoriteBorderRoundedIcon sx={{ color: 'grey.600' }} />
-                  )}
+                  )} 
                 </Box>
               )}
-              <CardMedia
-                sx={{
-                  width: '100%',
-                  height: imageHeight,
-                  position: 'relative',
-                }}
-              >
-                <Box sx={{ zIndex: 1 }}>
-                  <KiboImage
-                    src={imageUrl || placeholderImageUrl}
-                    alt={imageUrl ? imageAltText : 'no-image-alt'}
-                    layout="fill"
-                    objectFit="contain"
-                    data-testid="product-image"
-                    errorimage={placeholderImageUrl}
-                  />
-                </Box>
-              </CardMedia>
-              <Box flexDirection="column" m={2} mt={1}>
-                <Typography variant="body1" gutterBottom color="text.primary">
-                  {title}
-                </Typography>
-                <Price price={price} salePrice={salePrice} variant="body1" />
-                <Rating
-                  name="read-only"
-                  value={rating}
-                  precision={0.5}
-                  readOnly
-                  size="small"
-                  icon={<StarRounded color="primary" data-testid="filled-rating" />}
-                  emptyIcon={<StarRounded data-testid="empty-rating" />}
-                  data-testid="product-rating"
-                />
-                {showQuickViewButton && (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    className="quick-view"
-                    sx={styles.quickView}
-                    onClick={handleOpenProductQuickViewModal}
-                  >
-                    {t('quick-view')}
-                  </Button>
-                )}
-              </Box>
-            </Card>
+                <CardMedia
+                  sx={{
+                    width: '100%',
+                    height: imageHeight,
+                    position: 'relative',
+                  }}
+                >
+                  <Box sx={{ zIndex: 1 }}>
+                    <KiboImage
+                      src={imageUrl || placeholderImageUrl}
+                      alt={imageUrl ? imageAltText : 'no-image-alt'}
+                      layout="fill"
+                      objectFit="contain"
+                      data-testid="product-image"
+                      errorimage={placeholderImageUrl}
+                    />
+                  </Box>
+                </CardMedia>
+                <Box flexDirection="column" m={2} mt={1}>
+                  <Typography variant="body1" gutterBottom color="text.primary">
+                    {title}
+                  </Typography>
+                  <Price price={price} salePrice={salePrice} variant="body1" />
+                  {showProuductRating && (
+                    <Rating
+                      name="read-only"
+                      value={rating}
+                      precision={0.5}
+                      readOnly
+                      size="small"
+                      icon={<StarRounded color="primary" data-testid="filled-rating" />}
+                      emptyIcon={<StarRounded data-testid="empty-rating" />}
+                      data-testid="product-rating"
+                    />
+                  )}
+                  {showQuickViewButton && (
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className="quick-view"
+                      sx={styles.quickView}
+                      onClick={handleOpenProductQuickViewModal}
+                    >
+                      {t('quick-view')}
+                    </Button>
+                  )}
+                  </Box>
+                  </Card>
           </Box>
         </Link>
         <Box>

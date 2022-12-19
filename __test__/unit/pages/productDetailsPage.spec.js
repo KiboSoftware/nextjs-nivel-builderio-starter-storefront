@@ -67,6 +67,9 @@ jest.mock('next/config', () => {
         ],
         pageSize: 16,
       },
+      builderIO: {
+        apiKey: 'builder_api_key',
+      },
     },
     serverRuntimeConfig: {
       revalidate: 60,

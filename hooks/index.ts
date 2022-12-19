@@ -17,6 +17,7 @@ export * from './queries/useProductLocationInventoryQueries/useProductLocationIn
 export * from './queries/useReturnReasonsQueries/useReturnReasonsQueries'
 export * from './queries/useReturnsQueries/useReturnsQueries'
 export * from './queries/useCheckoutDestinationQueries/useCheckoutDestinationQueries'
+export * from './queries/useCategorySearchQueries/useCategorySearchQueries'
 
 // MultiShip
 export * from './queries/multiShip/useCheckoutQueries/useCheckoutQueries'
