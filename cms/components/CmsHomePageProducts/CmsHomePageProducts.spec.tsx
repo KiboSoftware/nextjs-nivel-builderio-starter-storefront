@@ -9,7 +9,7 @@ import * as stories from './CmsHomePageProducts.stories' // import all stories f
 const { Common } = composeStories(stories)
 
 const ProductCardMock = () => <div data-testid="product-card-mock" />
-jest.mock('@/components/product/ProductCard/ProductCard', () => ProductCardMock)
+jest.mock('@/components/product/ProductCard/ProductCard', () => () => ProductCardMock())
 
 describe('[component] CmsHomePageProducts', () => {
   it('should render component', async () => {
@@ -18,7 +18,8 @@ describe('[component] CmsHomePageProducts', () => {
 
     await waitFor(() => {
       const productCard = screen.getAllByTestId('product-card-mock')
-      expect(productCard.length).toBe(productSearchResultMock?.items?.length)
+      const count = (productSearchResultMock?.items?.length as number) * 2
+      expect(productCard.length).toBe(count)
     })
     expect(title[0]).toHaveTextContent(Common?.args?.recentlyViewed?.title as string)
     expect(title[1]).toHaveTextContent(Common?.args?.topSellings?.title as string)
