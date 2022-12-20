@@ -2,7 +2,7 @@ import { BuilderComponent, builder, Builder } from '@builder.io/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getConfig from 'next/config'
 
-import SmallBanner from '@/components/home/SmallBanner/SmallBanner'
+import { SmallBanner } from '@/components/home'
 import { CartTemplate } from '@/components/page-templates'
 import { ProductRecommendations } from '@/components/product'
 import { CategorySlider } from '@/components/product-listing'
