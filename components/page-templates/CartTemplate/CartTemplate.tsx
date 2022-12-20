@@ -38,6 +38,8 @@ import type { Cart, Location, CartItemInput, CartItem } from '@/lib/gql/types'
 
 export interface CartTemplateProps {
   cart: Cart
+  banner?: any
+  cartProductAndCategorySection?: any
 }
 
 const styles = {
@@ -59,7 +61,7 @@ const styles = {
 
 const CartTemplate = (props: CartTemplateProps) => {
   const { data: cart } = useCartQueries(props?.cart)
-
+  const { banner, cartProductAndCategorySection } = props
   const { t } = useTranslation('common')
   const theme = useTheme()
   const isMobileViewport = useMediaQuery(theme.breakpoints.down('md'))
@@ -205,11 +207,14 @@ const CartTemplate = (props: CartTemplateProps) => {
     ),
   }
 
-  console.log('length', cart?.items?.length)
-
   return (
     <Grid container>
       {/* Header section */}
+      {banner && (
+        <Grid item xs={12}>
+          {banner}
+        </Grid>
+      )}
       <Grid item xs={12} md={8} sx={{ paddingX: { xs: 2, md: 0 }, paddingY: { xs: 2 } }}>
         <Box display="flex" gap={1}>
           <Typography variant="h1" gutterBottom>
@@ -280,6 +285,11 @@ const CartTemplate = (props: CartTemplateProps) => {
             </Link>
           </Box>
         </Box>
+      )}
+      {cartProductAndCategorySection && (
+        <Grid item xs={12}>
+          {cartProductAndCategorySection}
+        </Grid>
       )}
     </Grid>
   )
