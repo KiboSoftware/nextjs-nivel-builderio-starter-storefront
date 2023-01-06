@@ -87,14 +87,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale, req, res } = context
   const response = await getCart(req, res)
 
-  const bannerSection = await builder.get('cart-banner-section').promise()
-  const cartProductAndCategorySection = await builder
-    .get('cart-product-and-category-section')
-    .promise()
+  const cartTopContentSection = await builder.get('cart-top-content-section').promise()
+  const cartBottomContentSection = await builder.get('cart-bottom-content-section').promise()
   return {
     props: {
-      bannerSection: bannerSection || null,
-      cartProductAndCategorySection: cartProductAndCategorySection || null,
+      cartTopContentSection: cartTopContentSection || null,
+      cartBottomContentSection: cartBottomContentSection || null,
       cart: response?.currentCart,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
@@ -102,19 +100,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const CartPage: NextPage = (props: any) => {
-  const { bannerSection, cartProductAndCategorySection } = props
+  const { cartTopContentSection, cartBottomContentSection } = props
   return (
     <>
       <CartTemplate
         {...props}
-        banner={
-          bannerSection && <BuilderComponent model="cart-banner-section" content={bannerSection} />
+        cartTopContentSection={
+          cartTopContentSection && (
+            <BuilderComponent model="cart-top-content-section" content={cartTopContentSection} />
+          )
         }
-        cartProductAndCategorySection={
-          cartProductAndCategorySection && (
+        cartBottomContentSection={
+          cartBottomContentSection && (
             <BuilderComponent
-              model="cart-product-section"
-              content={cartProductAndCategorySection}
+              model="cart-bottom-content-section"
+              content={cartBottomContentSection}
             />
           )
         }
