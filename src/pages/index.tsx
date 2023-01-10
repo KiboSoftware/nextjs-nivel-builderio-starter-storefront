@@ -3,10 +3,7 @@ import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
-import { homePageResultMock } from '@/__mocks__/stories'
-import KiboHeroCarousel from '@/components/home/Carousel/KiboHeroCarousel'
-import ContentTile from '@/components/home/ContentTile/ContentTile'
-import SmallBanner from '@/components/home/SmallBanner/SmallBanner'
+import { KiboHeroCarousel, ContentTile, SmallBanner } from '@/components/home'
 import { FullWidthLayout } from '@/components/layout'
 import { ProductRecommendations } from '@/components/product'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
@@ -388,7 +385,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       page: page || null,
       categoriesTree,
-      carouselItem: homePageResultMock,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   }
