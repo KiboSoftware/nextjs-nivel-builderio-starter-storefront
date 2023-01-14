@@ -3,12 +3,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getConfig from 'next/config'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
-import nextI18NextConfig from '../../next-i18next.config'
-import { KiboHeroCarousel, ContentTile, SmallBanner } from '@/components/home'
+import { Title } from '@/components/common'
+import { KiboHeroCarousel, ContentTile, SmallBanner, LargeBanner } from '@/components/home'
 import { FullWidthLayout } from '@/components/layout'
 import { ProductRecommendations } from '@/components/product'
+import { CategorySlider } from '@/components/product-listing'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
+import LargeBannerImage from '@/public/np_hp_twa_hero_bkg.jpg'
 
 import type { GetServerSidePropsContext } from 'next'
 
@@ -61,6 +63,60 @@ Builder.registerComponent(SmallBanner, {
           type: 'string',
         },
       ],
+    },
+  ],
+})
+
+Builder.registerComponent(LargeBanner, {
+  name: 'LargeBanner',
+  inputs: [
+    {
+      name: 'bannerProps',
+      type: 'object',
+      defaultValue: {
+        title: 'New & Improved',
+        subtitle1: 'Tire & Wheel',
+        subtitle2: 'Builder',
+        buttonTitle: 'Start Building',
+        buttonUrl: '/category/591',
+        backgroundImageUrl: LargeBannerImage,
+      },
+      subFields: [
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'subtitle1',
+          type: 'string',
+        },
+        {
+          name: 'subtitle2',
+          type: 'string',
+        },
+        {
+          name: 'buttonTitle',
+          type: 'string',
+        },
+        {
+          name: 'buttonUrl',
+          type: 'string',
+        },
+        {
+          name: 'backgroundImageUrl',
+          type: 'string',
+        },
+      ],
+    },
+  ],
+})
+
+Builder.registerComponent(CategorySlider, {
+  name: 'CategorySlider',
+  inputs: [
+    {
+      name: 'categoryCodes',
+      type: 'KiboCommerceCategoriesList',
     },
   ],
 })
@@ -145,7 +201,17 @@ Builder.registerComponent(ProductRecommendations, {
     },
     {
       name: 'productCodes',
-      type: 'KiboCommerceProduct', // 'ShopifyCollectionHandle',
+      type: 'KiboCommerceProductsList', // 'ShopifyCollectionHandle',
+    },
+  ],
+})
+
+Builder.registerComponent(Title, {
+  name: 'Title',
+  inputs: [
+    {
+      name: 'title',
+      type: 'string',
     },
   ],
 })
@@ -375,7 +441,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
   const page = await builder
-    .get('page', {
+    .get('nivels-page', {
       userAttributes: {
         urlPath: '/',
       },
@@ -386,7 +452,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       page: page || null,
       categoriesTree,
-      carouselItem: homePageResultMock,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   }
