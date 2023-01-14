@@ -93,7 +93,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       cartTopContentSection: cartTopContentSection || null,
       cartBottomContentSection: cartBottomContentSection || null,
-      cart: response?.currentCart,
+      cart: response?.currentCart || null,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   }

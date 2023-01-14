@@ -22,25 +22,25 @@ const CategorySlider = (props: CategorySliderProps) => {
 
   return (
     <>
-      {categoryCodes?.length > 0 && (
+      {/* {categoryCodes?.length > 0 && (
         <Carousel isRTL={false} breakPoints={breakPoints}>
-          {categories &&
-            categories?.map((category: any) => {
-              return (
-                <ProductCard
-                  key={category?.categoryCode}
-                  imageUrl={productGetters.handleProtocolRelativeUrl(
-                    categorySearchGetters.getCoverImage(category)
-                  )}
-                  link={getCategoryLink(category?.categoryCode as string)}
-                  title={categorySearchGetters.getName(category) as string}
-                  isShowWishlistIcon={false}
-                  showProuductRating={false}
-                />
-              )
-            })}
-        </Carousel>
-      )}
+        {categories &&
+          categories?.map((category: any) => {
+            return (
+              <ProductCard
+                key={category?.categoryCode}
+                imageUrl={productGetters.handleProtocolRelativeUrl(
+                  categorySearchGetters.getCoverImage(category)
+                )}
+                link={getCategoryLink(category?.categoryCode as string)}
+                title={categorySearchGetters.getName(category) as string}
+                isShowWishlistIcon={false}
+                showProuductRating={false}
+              />
+            )
+          })}
+      </Carousel>
+      )} */}
     </>
   )
 }
