@@ -4,8 +4,8 @@ import { StarRounded } from '@mui/icons-material'
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { Card, Typography, Rating, CardMedia, Box, Stack, Skeleton, Button } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { KiboImage, Price } from '@/components/common'
 import { usePriceRangeFormatter } from '@/hooks'
@@ -120,7 +120,7 @@ const ProductCard = (props: ProductCardProps) => {
                     <FavoriteRoundedIcon sx={{ color: 'red.900' }} />
                   ) : (
                     <FavoriteBorderRoundedIcon sx={{ color: 'grey.600' }} />
-                  )} 
+                  )}
                 </Box>
               )}
               <CardMedia

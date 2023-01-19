@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Grid } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import getConfig from 'next/config'
+import { useTranslation } from 'next-i18next'
 import Carousel from 'react-elastic-carousel'
 
 import { Title } from '@/components/common'
