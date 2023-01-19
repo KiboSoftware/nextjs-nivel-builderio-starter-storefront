@@ -1,7 +1,4 @@
 import { BuilderComponent, builder, Builder } from '@builder.io/react'
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
-import HeadsetMicIcon from '@mui/icons-material/HeadsetMic'
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -81,7 +78,7 @@ Builder.registerComponent(CmsVehicleInnovation, {
   name: 'CmsVehicleInnovation',
   inputs: [
     {
-      name: 'vehicleInnocationProps',
+      name: 'vehicleInnovationProps',
       type: 'object',
       defaultValue: {
         title: '50 Years of Specialty Vehicle Innovation',
@@ -89,15 +86,15 @@ Builder.registerComponent(CmsVehicleInnovation, {
         backgroundImageUrl: InnovationBackgroundImage,
         footerChildrens: [
           {
-            // icon: EmojiEventsIcon,
+            icon: 'emoji_events',
             info: 'Our superior service sets us apart from the competition',
           },
           {
-            // icon: HeadsetMicIcon,
+            icon: 'headset_mic',
             info: 'With the largest technical and customer support staff in the industry, we are here to help you, both before and after you place your order',
           },
           {
-            // icon: LocalShippingIcon,
+            icon: 'local_shipping',
             info: 'And we stock virtually everything we sell, ship 95% of our orders the same day, and deliver in 2 days.',
           },
         ],
@@ -119,10 +116,10 @@ Builder.registerComponent(CmsVehicleInnovation, {
           name: 'footerChildrens',
           type: 'list',
           subFields: [
-            // {
-            //   name: 'icon',
-            //   type: 'any'
-            // },
+            {
+              name: 'icon',
+              type: 'string',
+            },
             {
               name: 'info',
               type: 'string',
@@ -560,55 +557,6 @@ Builder.registerComponent(CmsFeaturedCategories, {
     },
   ],
 })
-
-// Builder.registerComponent(CmsVehicleInnovation, {
-//   name: 'CmsVehicleInnovation',
-//   inputs: [
-//     {
-//       name: 'title',
-//       type: 'string',
-//       defaultValue: '50 Years of Specialty Vehicle Innovation'
-//     },
-//     {
-//       name: 'subtitle',
-//       type: 'string',
-//       defaultValue: 'It\'s What Drives Us'
-//     },
-//     {
-//       name: 'backgroundImageUrl',
-//       type: 'any',
-//       defaultValue: InnovationBackgroundImage
-//     },
-//     {
-//       name: 'footerChildrens',
-//       type: 'list',
-//       defaultValue: [
-//         {
-//           icon: EmojiEventsIcon,
-//           info: 'Our superior service sets us apart from the competition',
-//         },
-//         {
-//           icon: HeadsetMicIcon,
-//           info: 'With the largest technical and customer support staff in the industry, we are here to help you, both before and after you place your order',
-//         },
-//         {
-//           icon: LocalShippingIcon,
-//           info: 'And we stock virtually everything we sell, ship 95% of our orders the same day, and deliver in 2 days.',
-//         },
-//       ],
-//       subFields: [
-//         {
-//           name: 'icon',
-//           type: 'any'
-//         },
-//         {
-//           name: 'info',
-//           type: 'string'
-//         }
-//       ]
-//     },
-//   ],
-// })
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale } = context

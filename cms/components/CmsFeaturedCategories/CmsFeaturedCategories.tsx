@@ -3,8 +3,6 @@ import * as React from 'react'
 import {
   Box,
   Typography,
-  useTheme,
-  useMediaQuery,
   Grid,
   Container,
   Card,
@@ -118,9 +116,6 @@ const FeaturedCategory = (props: featuredCategoryProps) => {
   )
 }
 const CmsFeaturedCategories = ({ featuredCategories, title }: featuredCategoriesProps) => {
-  const kiboTheme = useTheme()
-  const mobileView = useMediaQuery(kiboTheme.breakpoints.down('md'))
-
   return (
     <Container maxWidth={'xl'} sx={{ display: 'flex', flexDirection: 'column' }}>
       {featuredCategories && (
