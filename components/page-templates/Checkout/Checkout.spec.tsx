@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react'
 import { composeStories } from '@storybook/testing-react'
 import { screen } from '@testing-library/react'
 
-import { renderWithQueryClient } from '../../../__test__/utils/renderWithQueryClient'
 import * as stories from './Checkout.stories'
+import { renderWithQueryClient } from '../../../__test__/utils/renderWithQueryClient'
 import { CheckoutStepProvider } from '@/context/CheckoutStepContext/CheckoutStepContext'
 
 jest.mock('next/router', () => ({

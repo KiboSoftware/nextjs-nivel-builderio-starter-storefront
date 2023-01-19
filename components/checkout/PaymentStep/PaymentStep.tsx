@@ -11,8 +11,8 @@ import {
   Typography,
   Button,
 } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import getConfig from 'next/config'
+import { useTranslation } from 'next-i18next'
 
 import { CardDetailsForm, SavedPaymentMethodView } from '@/components/checkout'
 import { AddressForm } from '@/components/common'

@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 
 import { Box, Stack, Button, SxProps } from '@mui/material'
 import { Theme } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 import {
   DetailsStep,

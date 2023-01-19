@@ -13,8 +13,8 @@ import {
   Theme,
   SxProps,
 } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { KiboImage, Price } from '@/components/common'
 import { ProductOption, ProductOptionList } from '@/components/product'
