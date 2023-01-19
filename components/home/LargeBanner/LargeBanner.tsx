@@ -6,12 +6,9 @@ import {
   CardContent,
   Typography,
   useTheme,
-  Theme,
-  styled,
   CardMedia,
   Button,
 } from '@mui/material'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { KiboImage } from '@/components/common'
@@ -21,7 +18,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '600px',
     width: '100%',
     margin: '0px',
     padding: '0px',
@@ -42,8 +38,12 @@ const styles = {
     flexDirection: 'column',
     opacity: '0.99',
     alignItems: 'flex-start',
-    width: { xs: '80%', md: '50%' },
-    gap: 2,
+    width: '100%',
+    backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.0))',
+    padding: '5%',
+    ':last-child': {
+      paddingBottom: '5%',
+    },
   },
   nameStyle: {
     width: '100%',
@@ -87,14 +87,22 @@ const LargeBanner = ({ bannerProps }: any) => {
             />
 
             <CardContent sx={styles.cardStyle}>
-              <Typography variant="h2" sx={styles.nameStyle} style={{ fontSize: '3.6rem' }}>
+              <Typography
+                variant="h2"
+                sx={styles.nameStyle}
+                style={{ fontSize: mobileView ? '18px' : '36px' }}
+              >
                 {title}
               </Typography>
-              <Typography variant="h1" sx={styles.subTitleStyle} style={{ fontSize: '60px' }}>
+              <Typography
+                variant="h1"
+                sx={styles.subTitleStyle}
+                style={{ fontSize: mobileView ? '30px' : '60px' }}
+              >
                 {subtitle1}
               </Typography>
               <Typography
-                style={{ fontSize: mobileView ? '0.75rem' : '120px' }}
+                style={{ fontSize: mobileView ? '60px' : '120px' }}
                 sx={styles.subTitleStyle}
               >
                 {subtitle2}

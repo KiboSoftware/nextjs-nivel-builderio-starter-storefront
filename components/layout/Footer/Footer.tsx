@@ -21,7 +21,6 @@ export default function Footer(props: any) {
       component="div"
       sx={{
         p: 10,
-        marginTop: 10,
         borderTop: '.5rem solid',
         borderColor: 'primary.main',
         backgroundColor: 'common.black',

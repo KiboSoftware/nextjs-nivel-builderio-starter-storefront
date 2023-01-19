@@ -6,20 +6,18 @@ import {
   useTheme,
   useMediaQuery,
   Grid,
-  styled,
   Container,
   Card,
   CardMedia,
   CardContent,
   Button,
 } from '@mui/material'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { KiboImage, Title } from '@/components/common'
 
 export interface featuredCategoryProps {
-  imgSource: string
+  imgSource: any
   title: string
   buttonTitle: string
   buttonUrl: string
@@ -52,30 +50,39 @@ const styles = {
   },
   cardStyle: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'column',
-    opacity: '0.99',
     alignItems: 'flex-start',
-    width: { xs: '80%', md: '50%' },
-    gap: 2,
+    width: '100%',
+    minHeight: '350px',
+    opacity: '0.99',
+    padding: 0,
+    backgroundColor: 'rgba(0, 0, 0, .3)',
+    '&:last-child': {
+      paddingBottom: 0,
+    },
+    '&:hover': {
+      backgroundColor: 'transparent',
+      cursor: 'pointer',
+      '.cardButton': {
+        backgroundColor: '#0050d9',
+      },
+    },
   },
   nameStyle: {
     width: '100%',
-    textAlign: 'left',
+    textAlign: 'center',
     fontWeight: 600,
     color: 'common.white',
   },
-  subTitleStyle: {
-    width: '100%',
-    textAlign: 'left',
-    fontWeight: 800,
-    color: 'common.white',
-  },
   buttonStyle: {
-    fontSize: '1rem',
-    backgroundColor: '#0050D9',
-    borderColor: '#0050D9',
-    minWidth: '180px',
+    fontSize: '14px',
+    backgroundColor: 'transparent',
+    borderColor: 'rgba(255,255,255, 0.4)',
+    minWidth: '120px',
+    background: 'transparent',
+    textAlign: 'center',
+    margin: '1rem auto 0',
   },
 }
 
@@ -83,7 +90,12 @@ const FeaturedCategory = (props: featuredCategoryProps) => {
   const { imgSource, title, buttonTitle, buttonUrl } = props
   const router = useRouter()
   return (
-    <Card sx={styles.contentStyle}>
+    <Card
+      sx={styles.contentStyle}
+      onClick={() => {
+        router.push(buttonUrl)
+      }}
+    >
       <CardMedia sx={styles.cardMediaStyle}>
         <KiboImage
           src={imgSource}
@@ -94,16 +106,10 @@ const FeaturedCategory = (props: featuredCategoryProps) => {
         />
 
         <CardContent sx={styles.cardStyle}>
-          <Typography variant="h2" sx={styles.nameStyle} style={{ fontSize: '3.6rem' }}>
+          <Typography variant="h2" sx={styles.nameStyle}>
             {title}
           </Typography>
-          <Button
-            variant="contained"
-            sx={styles.buttonStyle}
-            onClick={() => {
-              router.push(buttonUrl)
-            }}
-          >
+          <Button variant="contained" className="cardButton" sx={{ ...styles.buttonStyle }}>
             {buttonTitle}
           </Button>
         </CardContent>
@@ -121,9 +127,9 @@ const CmsFeaturedCategories = ({ featuredCategories, title }: featuredCategories
         <>
           {title && <Title title={title} />}
           <Box sx={{ width: '100%' }}>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 4, md: 4 }}>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               {featuredCategories?.map((category: featuredCategoryProps, index) => (
-                <Grid key={index} item xs={mobileView ? 12 : 3}>
+                <Grid key={index} item xs={12} sm={12} md={6} lg={3}>
                   <FeaturedCategory
                     imgSource={category.imgSource}
                     title={category.title}
