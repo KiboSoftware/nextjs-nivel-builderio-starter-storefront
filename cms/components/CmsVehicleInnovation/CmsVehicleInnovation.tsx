@@ -7,17 +7,13 @@ import {
   Typography,
   useTheme,
   CardMedia,
-  Button,
   Box,
   Grid,
 } from '@mui/material'
-import { useRouter } from 'next/router'
+import Icon from '@mui/material/Icon'
+import Link from 'next/link'
 
 import { KiboImage } from '@/components/common'
-import Link from 'next/link'
-// import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
-// import HeadsetMicIcon from '@mui/icons-material/HeadsetMic'
-// import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 
 const styles = {
   contentStyle: {
@@ -44,9 +40,6 @@ const styles = {
     flexDirection: 'column',
     opacity: '0.99',
     maxWidth: '1024px',
-    // alignItems: 'flex-start',
-    // width: '100%',
-    // backgroundImage: 'linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.0))',
     padding: '70px 0 80px',
     ':last-child': {
       paddingBottom: '80px',
@@ -79,19 +72,18 @@ const styles = {
     padding: '1.6rem 0',
     textAlign: 'center',
     margin: 'auto',
+    height: 'auto',
   },
 }
 
-const CmsVehicleInnovation = ({ vehicleInnocationProps }: any) => {
+const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
   const kiboTheme = useTheme()
   const mobileView = useMediaQuery(kiboTheme.breakpoints.down('sm'))
 
-  const { title, subtitle, backgroundImageUrl, footerChildrens } = vehicleInnocationProps || {}
-  console.log(vehicleInnocationProps)
-
+  const { title, subtitle, backgroundImageUrl, footerChildrens } = vehicleInnovationProps || {}
   return (
     <>
-      {vehicleInnocationProps && (
+      {vehicleInnovationProps && (
         <Card sx={styles.contentStyle}>
           <CardMedia sx={styles.cardMediaStyle}>
             <KiboImage
@@ -117,12 +109,10 @@ const CmsVehicleInnovation = ({ vehicleInnocationProps }: any) => {
                       {subtitle}
                     </Typography>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                      {footerChildrens?.map((children: any) => {
-                        // const Icon = children?.icon
-                        const info = children?.info
+                      {footerChildrens?.map(({ icon, info }: any) => {
                         return (
                           <Grid item xs={4} key={info}>
-                            {/* <Icon sx={styles.iconStyle} /> */}
+                            <Icon sx={styles.iconStyle}>{icon}</Icon>
                             <Typography
                               variant="subtitle2"
                               component="span"
@@ -133,26 +123,6 @@ const CmsVehicleInnovation = ({ vehicleInnocationProps }: any) => {
                           </Grid>
                         )
                       })}
-                      {/* <Grid item xs={4}>
-                      <EmojiEventsIcon sx={styles.iconStyle} />
-                      <Typography variant='subtitle2' component="span" sx={{ color: 'common.white', display: 'flex', textAlign: 'center' }}>
-                        Our superior service sets us apart from the competition
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <HeadsetMicIcon sx={styles.iconStyle} />
-                      <Typography variant='subtitle2' component="span" sx={{ color: 'common.white', display: 'flex', textAlign: 'center' }}>
-                        With the largest technical and customer support staff in the industry, we
-                        are here to help you, both before and after you place your order
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <LocalShippingIcon sx={styles.iconStyle} />
-                      <Typography variant='subtitle2' component="span" sx={{ color: 'common.white', display: 'flex', textAlign: 'center' }}>
-                        And we stock virtually everything we sell, ship 95% of our orders the same
-                        day, and deliver in 2 days.
-                      </Typography>
-                    </Grid> */}
                     </Grid>
                   </Box>
                 )}
