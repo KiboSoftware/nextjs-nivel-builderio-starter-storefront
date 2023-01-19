@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { forwardRef, ReactNode } from 'react'
 
 import { Grid } from '@mui/material'
 import getConfig from 'next/config'
 import { useTranslation } from 'next-i18next'
-import Carousel from 'react-elastic-carousel'
+import Carousel, { ReactElasticCarouselProps } from 'react-elastic-carousel'
 
 import { Title } from '@/components/common'
 import { ProductCard } from '@/components/product'
@@ -27,12 +27,17 @@ const ProductRecommendations = (props: ProductRecommendationsProps) => {
   const products = productSearchResult?.items as Product[]
   const breakPoints = publicRuntimeConfig?.builderIO?.breakPoints
 
+  /* eslint-disable react/display-name */
+  const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[] }>(
+    (props, ref) => <Carousel ref={ref} {...props} />
+  )
+
   return (
     <>
       {productCodes?.length > 0 && (
         <Grid item xs={12} sx={{ p: { xs: 1, md: 5 }, marginY: 2 }}>
           <Title title={title} />
-          {/* <Carousel isRTL={false} breakPoints={breakPoints}>
+          <CustomCarousel isRTL={false} breakPoints={breakPoints}>
             {products?.map((product) => {
               return (
                 <ProductCard
@@ -51,11 +56,12 @@ const ProductRecommendations = (props: ProductRecommendationsProps) => {
                     }),
                   })}
                   title={productGetters.getName(product) as string}
-                  rating={productGetters.getRating(product)}
+                  isShowWishlistIcon={false}
+                  showProuductRating={false}
                 />
               )
             })}
-          </Carousel> */}
+          </CustomCarousel>
         </Grid>
       )}
     </>

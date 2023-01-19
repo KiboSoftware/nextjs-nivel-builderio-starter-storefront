@@ -1,8 +1,13 @@
 import { BuilderComponent, builder, Builder } from '@builder.io/react'
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
+import CmsFeaturedCategories from '@/cms/components/CmsFeaturedCategories/CmsFeaturedCategories'
+import CmsVehicleInnovation from '@/cms/components/CmsVehicleInnovation/CmsVehicleInnovation'
 import { Title } from '@/components/common'
 import { KiboHeroCarousel, ContentTile, SmallBanner, LargeBanner } from '@/components/home'
 import { FullWidthLayout } from '@/components/layout'
@@ -10,6 +15,11 @@ import { ProductRecommendations } from '@/components/product'
 import { CategorySlider } from '@/components/product-listing'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
+import InnovationBackgroundImage from '@/public/nivel-parts-footer-top-bkg-680.jpg'
+import EnclosuresAndCovers from '@/public/np-hp-featured-category-enclosures.jpg'
+import Lighting from '@/public/np-hp-featured-category-lighting.jpg'
+import Seating from '@/public/np-hp-featured-category-seating.jpg'
+import TopsAndWindshields from '@/public/np-hp-featured-category-windshields.jpg'
 import LargeBannerImage from '@/public/np_hp_twa_hero_bkg.jpg'
 
 import type { GetServerSidePropsContext } from 'next'
@@ -67,6 +77,63 @@ Builder.registerComponent(SmallBanner, {
   ],
 })
 
+Builder.registerComponent(CmsVehicleInnovation, {
+  name: 'CmsVehicleInnovation',
+  inputs: [
+    {
+      name: 'vehicleInnocationProps',
+      type: 'object',
+      defaultValue: {
+        title: '50 Years of Specialty Vehicle Innovation',
+        subtitle: 'Its What Drives Us',
+        backgroundImageUrl: InnovationBackgroundImage,
+        footerChildrens: [
+          {
+            // icon: EmojiEventsIcon,
+            info: 'Our superior service sets us apart from the competition',
+          },
+          {
+            // icon: HeadsetMicIcon,
+            info: 'With the largest technical and customer support staff in the industry, we are here to help you, both before and after you place your order',
+          },
+          {
+            // icon: LocalShippingIcon,
+            info: 'And we stock virtually everything we sell, ship 95% of our orders the same day, and deliver in 2 days.',
+          },
+        ],
+      },
+      subFields: [
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'subtitle',
+          type: 'string',
+        },
+        {
+          name: 'backgroundImageUrl',
+          type: 'any',
+        },
+        {
+          name: 'footerChildrens',
+          type: 'list',
+          subFields: [
+            // {
+            //   name: 'icon',
+            //   type: 'any'
+            // },
+            {
+              name: 'info',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+})
+
 Builder.registerComponent(LargeBanner, {
   name: 'LargeBanner',
   inputs: [
@@ -78,7 +145,7 @@ Builder.registerComponent(LargeBanner, {
         subtitle1: 'Tire & Wheel',
         subtitle2: 'Builder',
         buttonTitle: 'Start Building',
-        buttonUrl: '/category/591',
+        buttonUrl: '/category/TWB',
         backgroundImageUrl: LargeBannerImage,
       },
       subFields: [
@@ -435,6 +502,113 @@ Builder.registerComponent(ContentTile, {
     },
   ],
 })
+
+Builder.registerComponent(CmsFeaturedCategories, {
+  name: 'CmsFeaturedCategories',
+  inputs: [
+    {
+      name: 'featuredCategories',
+      type: 'list',
+      defaultValue: [
+        {
+          imgSource: EnclosuresAndCovers,
+          title: 'Enclosers & Covers',
+          buttonTitle: 'Shop Category',
+          buttonUrl: '/category/PAA-EC',
+        },
+        {
+          imgSource: Lighting,
+          title: 'Lighting',
+          buttonTitle: 'Shop Category',
+          buttonUrl: '/category/LIG',
+        },
+        {
+          imgSource: Seating,
+          title: 'Seating',
+          buttonTitle: 'Shop Category',
+          buttonUrl: '/category/SEA',
+        },
+        {
+          imgSource: TopsAndWindshields,
+          title: 'Tops & Windshields',
+          buttonTitle: 'Shop Category',
+          buttonUrl: '/category/TAW',
+        },
+      ],
+      subFields: [
+        {
+          name: 'imgSource',
+          type: 'string',
+        },
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'buttonTitle',
+          type: 'string',
+        },
+        {
+          name: 'buttonUrl',
+          type: 'string',
+        },
+      ],
+    },
+    {
+      name: 'title',
+      type: 'string',
+    },
+  ],
+})
+
+// Builder.registerComponent(CmsVehicleInnovation, {
+//   name: 'CmsVehicleInnovation',
+//   inputs: [
+//     {
+//       name: 'title',
+//       type: 'string',
+//       defaultValue: '50 Years of Specialty Vehicle Innovation'
+//     },
+//     {
+//       name: 'subtitle',
+//       type: 'string',
+//       defaultValue: 'It\'s What Drives Us'
+//     },
+//     {
+//       name: 'backgroundImageUrl',
+//       type: 'any',
+//       defaultValue: InnovationBackgroundImage
+//     },
+//     {
+//       name: 'footerChildrens',
+//       type: 'list',
+//       defaultValue: [
+//         {
+//           icon: EmojiEventsIcon,
+//           info: 'Our superior service sets us apart from the competition',
+//         },
+//         {
+//           icon: HeadsetMicIcon,
+//           info: 'With the largest technical and customer support staff in the industry, we are here to help you, both before and after you place your order',
+//         },
+//         {
+//           icon: LocalShippingIcon,
+//           info: 'And we stock virtually everything we sell, ship 95% of our orders the same day, and deliver in 2 days.',
+//         },
+//       ],
+//       subFields: [
+//         {
+//           name: 'icon',
+//           type: 'any'
+//         },
+//         {
+//           name: 'info',
+//           type: 'string'
+//         }
+//       ]
+//     },
+//   ],
+// })
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale } = context
