@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import Icon from '@mui/material/Icon'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { KiboImage } from '@/components/common'
 
@@ -68,7 +69,7 @@ const styles = {
   iconStyle: {
     color: '#fff',
     display: 'block',
-    fontSize: '5rem !important',
+    fontSize: '5rem',
     padding: '1.6rem 0',
     textAlign: 'center',
     margin: 'auto',
@@ -79,8 +80,16 @@ const styles = {
 const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
   const kiboTheme = useTheme()
   const mobileView = useMediaQuery(kiboTheme.breakpoints.down('sm'))
+  const { t } = useTranslation('common')
 
-  const { title, subtitle, backgroundImageUrl, footerChildrens } = vehicleInnovationProps || {}
+  const {
+    title,
+    subtitle,
+    backgroundImageUrl,
+    footerChildrens,
+    mobileViewLinkTitle,
+    mobileViewLinkUrl,
+  } = vehicleInnovationProps || {}
   return (
     <>
       {vehicleInnovationProps && (
@@ -88,10 +97,10 @@ const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
           <CardMedia sx={styles.cardMediaStyle}>
             <KiboImage
               src={backgroundImageUrl}
-              alt={backgroundImageUrl ? 'abc' : 'product-image-alt'}
+              alt={backgroundImageUrl ? 'vehicle-innovation-image' : 'vehicle-innovation-image-alt'}
               layout="fill"
               objectFit="cover"
-              data-testid="product-image"
+              data-testid="vehicle-innovation-image"
             />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <CardContent sx={styles.cardStyle}>
@@ -100,12 +109,7 @@ const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
                 </Typography>
                 {!mobileView && (
                   <Box sx={styles.footerContanier}>
-                    <Typography
-                      align="center"
-                      variant="h1"
-                      sx={styles.subTitleStyle}
-                      style={{ fontSize: '20px' }}
-                    >
+                    <Typography align="center" variant="h3" sx={styles.subTitleStyle}>
                       {subtitle}
                     </Typography>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -128,13 +132,13 @@ const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
                 )}
                 {mobileView && (
                   <Box sx={styles.footerContanier}>
-                    <Link href="/" passHref>
+                    <Link href={mobileViewLinkUrl} passHref>
                       <Typography
                         variant="body2"
                         color="text.primary"
                         sx={{ color: 'common.white', textDecoration: 'underline' }}
                       >
-                        Learn more about us
+                        {mobileViewLinkTitle}
                       </Typography>
                     </Link>
                   </Box>
