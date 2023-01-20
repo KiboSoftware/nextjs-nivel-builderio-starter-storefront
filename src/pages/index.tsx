@@ -84,6 +84,8 @@ Builder.registerComponent(CmsVehicleInnovation, {
         title: '50 Years of Specialty Vehicle Innovation',
         subtitle: 'Its What Drives Us',
         backgroundImageUrl: InnovationBackgroundImage,
+        mobileViewLinkTitle: 'Learn more about us',
+        mobileViewLinkUrl: '/',
         footerChildrens: [
           {
             icon: 'emoji_events',
@@ -111,6 +113,14 @@ Builder.registerComponent(CmsVehicleInnovation, {
         {
           name: 'backgroundImageUrl',
           type: 'any',
+        },
+        {
+          name: 'mobileViewLinkTitle',
+          type: 'string',
+        },
+        {
+          name: 'mobileViewLinkUrl',
+          type: 'string',
         },
         {
           name: 'footerChildrens',

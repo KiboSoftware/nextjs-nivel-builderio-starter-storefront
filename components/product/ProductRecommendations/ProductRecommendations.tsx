@@ -24,7 +24,7 @@ const ProductRecommendations = (props: ProductRecommendationsProps) => {
   const { t } = useTranslation('common')
   const { getProductLink } = uiHelpers()
   const { data: productSearchResult } = useProductsQueries(productCodes)
-  const products = productSearchResult?.items as Product[]
+  const products = (productSearchResult?.items as Product[]) || []
   const breakPoints = publicRuntimeConfig?.builderIO?.breakPoints
 
   /* eslint-disable react/display-name */
@@ -34,7 +34,7 @@ const ProductRecommendations = (props: ProductRecommendationsProps) => {
 
   return (
     <>
-      {productCodes?.length > 0 && (
+      {products.length > 0 && (
         <Grid item xs={12} sx={{ p: { xs: 1, md: 5 }, marginY: 2 }}>
           <Title title={title} />
           <CustomCarousel isRTL={false} breakPoints={breakPoints}>

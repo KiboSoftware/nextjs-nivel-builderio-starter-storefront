@@ -74,7 +74,7 @@ const styles = {
     color: 'common.white',
   },
   buttonStyle: {
-    fontSize: '14px',
+    typography: 'body2',
     backgroundColor: 'transparent',
     borderColor: 'rgba(255,255,255, 0.4)',
     minWidth: '120px',
@@ -97,7 +97,7 @@ const FeaturedCategory = (props: featuredCategoryProps) => {
       <CardMedia sx={styles.cardMediaStyle}>
         <KiboImage
           src={imgSource}
-          alt={imgSource ? 'abc' : 'product-image-alt'}
+          alt={imgSource ? 'featured-category-image' : 'featured-category-image-alt'}
           layout="fill"
           objectFit="cover"
           data-testid="featured-category-image"

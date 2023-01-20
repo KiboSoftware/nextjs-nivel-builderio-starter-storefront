@@ -17,8 +17,7 @@ const styles = {
       borderBottom: '1px solid',
       margin: 'auto',
       marginRight: '10px',
-      height: '0.2rem',
-      borderColor: '#ccc',
+      borderColor: 'grey.500',
     },
     '&::after': {
       content: `""`,
@@ -26,7 +25,7 @@ const styles = {
       borderBottom: '1px solid',
       margin: 'auto',
       marginLeft: '10px',
-      borderColor: '#ccc',
+      borderColor: 'grey.500',
     },
   },
 }

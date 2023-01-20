@@ -20,6 +20,8 @@ const vehicleInnovationProps = {
   title: '50 Years of Specialty Vehicle Innovation',
   subtitle: "It's What Drives Us",
   backgroundImageUrl: InnovationBackgroundImage,
+  mobileViewLinkTitle: 'Learn more about us',
+  mobileViewLinkUrl: '/',
   footerChildrens: [
     {
       icon: 'emoji_events',
