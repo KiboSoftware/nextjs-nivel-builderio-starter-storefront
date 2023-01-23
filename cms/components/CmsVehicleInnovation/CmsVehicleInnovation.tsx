@@ -12,7 +12,6 @@ import {
 } from '@mui/material'
 import Icon from '@mui/material/Icon'
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
 
 import { KiboImage } from '@/components/common'
 
@@ -71,16 +70,19 @@ const styles = {
     display: 'block',
     fontSize: '5rem',
     padding: '1.6rem 0',
-    textAlign: 'center',
     margin: 'auto',
     height: 'auto',
+  },
+  footerChildrenTitle: {
+    color: 'common.white',
+    display: 'flex',
+    textAlign: 'center',
   },
 }
 
 const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
   const kiboTheme = useTheme()
   const mobileView = useMediaQuery(kiboTheme.breakpoints.down('sm'))
-  const { t } = useTranslation('common')
 
   const {
     title,
@@ -116,11 +118,11 @@ const CmsVehicleInnovation = ({ vehicleInnovationProps }: any) => {
                       {footerChildrens?.map(({ icon, info }: any) => {
                         return (
                           <Grid item xs={4} key={info}>
-                            <Icon sx={styles.iconStyle}>{icon}</Icon>
+                            <Icon style={styles.iconStyle}>{icon}</Icon>
                             <Typography
                               variant="subtitle2"
                               component="span"
-                              sx={{ color: 'common.white', display: 'flex', textAlign: 'center' }}
+                              sx={styles.footerChildrenTitle}
                             >
                               {info}
                             </Typography>
