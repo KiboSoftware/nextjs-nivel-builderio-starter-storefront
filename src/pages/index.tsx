@@ -19,7 +19,7 @@ import Seating from '@/public/np-hp-featured-category-seating.jpg'
 import TopsAndWindshields from '@/public/np-hp-featured-category-windshields.jpg'
 import LargeBannerImage from '@/public/np_hp_twa_hero_bkg.jpg'
 
-import type { GetServerSidePropsContext } from 'next'
+import type { GetServerSidePropsContext, GetStaticPropsContext } from 'next'
 
 interface HomePageProps {
   page: any
@@ -568,9 +568,10 @@ Builder.registerComponent(CmsFeaturedCategories, {
   ],
 })
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const { locale } = context
-  const categoriesTree: CategoryTreeResponse = await getCategoryTree()
+  const categoriesTree: any = await getCategoryTree()
+  const { serverRuntimeConfig } = getConfig()
 
   const page = await builder
     .get('nivels-page', {
@@ -586,6 +587,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       categoriesTree,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
+    revalidate: serverRuntimeConfig.revalidate,
   }
 }
 

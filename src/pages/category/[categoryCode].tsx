@@ -36,24 +36,29 @@ Builder.registerComponent(CategorySlider, {
     },
   ],
 })
-
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const { locale, res } = context
-  const response = await productSearch(context.query as unknown as CategorySearchParams)
+export async function getStaticPaths() {
+  const walk = (category: any, categoryCodes: string[] = []) => {
+    if (category.isDisplayed) {
+      categoryCodes.push(category.categoryCode)
+    }
+    const { childrenCategories = [] } = category
+    for (const child of childrenCategories) {
+      walk(child, categoryCodes)
+    }
+    return categoryCodes
+  }
 
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
-  const category = await categoryTreeSearchByCode(context.query)
+  const getAllCategoryCodes = (categoryTree: any) => categoryTree.flatMap((c: any) => walk(c))
+  const paths = getAllCategoryCodes(categoriesTree).map((code: string) => `/category/${code}`)
+  return { paths, fallback: true }
+}
+export const getStaticProps: any = async (context: any) => {
+  const { locale } = context
+  const response = await productSearch(context.params as unknown as CategorySearchParams)
 
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
-
-  const section =
-    (await builder
-      .get('category-section', {
-        userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
-      })
-      .promise()) || null
+  const categoriesTree: CategoryTreeResponse = await getCategoryTree()
+  const category = await categoryTreeSearchByCode(context.params)
 
   return {
     props: {
@@ -62,8 +67,37 @@ export const getServerSideProps: GetServerSideProps = async (
       category,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
+    revalidate: 60,
   }
 }
+
+// export const getServerSideProps: GetServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   const { locale } = context
+//   const response = await productSearch(context.query as unknown as CategorySearchParams)
+
+//   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
+//   const category = await categoryTreeSearchByCode(context.query)
+
+//   // res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
+
+//   const section =
+//     (await builder
+//       .get('category-section', {
+//         userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
+//       })
+//       .promise()) || null
+
+//   return {
+//     props: {
+//       results: response?.data?.products || [],
+//       categoriesTree,
+//       category,
+//       ...(await serverSideTranslations(locale as string, ['common'])),
+//     }
+//   }
+// }
 
 const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
   const { section } = props

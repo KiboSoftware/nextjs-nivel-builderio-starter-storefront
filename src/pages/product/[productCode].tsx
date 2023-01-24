@@ -40,9 +40,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const product = await getProduct(productCode)
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
-  const section = await builder
-    .get('kibosection', { userAttributes: { slug: productCode } })
-    .promise()
+  // const section = await builder
+  //   .get('kibosection', { userAttributes: { slug: productCode } })
+  //   .promise()
 
   return {
     props: {
