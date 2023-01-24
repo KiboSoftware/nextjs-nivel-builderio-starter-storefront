@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getConfig from 'next/config'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
-import nextI18NextConfig from '../../next-i18next.config'
+// import nextI18NextConfig from '../../next-i18next.config'
 import KiboHeroCarousel from '@/components/home/Carousel/KiboHeroCarousel'
 import ContentTile from '@/components/home/ContentTile/ContentTile'
 import SmallBanner from '@/components/home/SmallBanner/SmallBanner'

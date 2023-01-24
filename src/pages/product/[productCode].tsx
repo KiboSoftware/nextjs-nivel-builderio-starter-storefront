@@ -4,7 +4,7 @@ import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 
 import { ProductDetailTemplate, ProductDetailSkeleton } from '@/components/page-templates'
-import nextI18NextConfig from '../../../next-i18next.config'
+// import nextI18NextConfig from '../../../next-i18next.config'
 import { ProductRecommendations } from '@/components/product'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import getProduct from '@/lib/api/operations/get-product'
