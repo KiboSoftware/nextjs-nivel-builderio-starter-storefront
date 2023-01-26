@@ -1,6 +1,6 @@
 import { BuilderComponent, builder, Builder } from '@builder.io/react'
-import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import getConfig from 'next/config'
 
 import { SmallBanner } from '@/components/home'
 import { CartTemplate } from '@/components/page-templates'
@@ -90,7 +90,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const isMultiShipEnabled = serverRuntimeConfig.isMultiShipEnabled
   const cartTopContentSection = await builder.get('cart-top-content-section').promise()
   const cartBottomContentSection = await builder.get('cart-bottom-content-section').promise()
-  
+
   return {
     props: {
       isMultiShipEnabled,
@@ -98,7 +98,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       cartBottomContentSection: cartBottomContentSection || null,
       cart: response?.currentCart || null,
       ...(await serverSideTranslations(locale as string, ['common'])),
-    }
+    },
   }
 }
 

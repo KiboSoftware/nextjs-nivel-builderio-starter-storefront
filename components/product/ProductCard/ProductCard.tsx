@@ -4,8 +4,8 @@ import { StarRounded } from '@mui/icons-material'
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { Card, Typography, Rating, CardMedia, Box, Stack, Skeleton, Button } from '@mui/material'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 import { KiboImage, Price } from '@/components/common'
 import { usePriceRangeFormatter } from '@/hooks'
@@ -151,16 +151,18 @@ const ProductCard = (props: ProductCardProps) => {
                   priceRange={productPriceRange}
                   variant="body1"
                 />
-                {showProuductRating && ( <Rating
-                  name="read-only"
-                  value={rating}
-                  precision={0.5}
-                  readOnly
-                  size="small"
-                  icon={<StarRounded color="primary" data-testid="filled-rating" />}
-                  emptyIcon={<StarRounded data-testid="empty-rating" />}
-                  data-testid="product-rating"
-                />)}
+                {showProuductRating && (
+                  <Rating
+                    name="read-only"
+                    value={rating}
+                    precision={0.5}
+                    readOnly
+                    size="small"
+                    icon={<StarRounded color="primary" data-testid="filled-rating" />}
+                    emptyIcon={<StarRounded data-testid="empty-rating" />}
+                    data-testid="product-rating"
+                  />
+                )}
                 {showQuickViewButton && (
                   <Button
                     variant="contained"

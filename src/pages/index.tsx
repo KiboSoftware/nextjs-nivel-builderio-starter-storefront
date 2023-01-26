@@ -1,6 +1,6 @@
 import { BuilderComponent, builder, Builder } from '@builder.io/react'
-import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import getConfig from 'next/config'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
 import CmsFeaturedCategories from '@/cms/components/CmsFeaturedCategories/CmsFeaturedCategories'
