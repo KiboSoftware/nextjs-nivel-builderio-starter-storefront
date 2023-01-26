@@ -21,7 +21,7 @@ This is a headless ecommerce starter kit for KiboCommerce platform using Next.JS
 
 1. Clone this repo
 
-```bash
+```bash 
 git clone https://github.com/KiboSoftware/nextjs-builderio-starter-storefront.git
 ```
 
