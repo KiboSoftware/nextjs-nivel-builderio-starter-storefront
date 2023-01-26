@@ -4,6 +4,7 @@ import { BuilderComponent, builder, Builder } from '@builder.io/react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useQueryClient } from 'react-query'
 
 import { ProductListingTemplate } from '@/components/page-templates'
 import { CategorySlider } from '@/components/product-listing'
@@ -11,6 +12,7 @@ import { useProductSearchQueries } from '@/hooks'
 import { productSearch, categoryTreeSearchByCode } from '@/lib/api/operations'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import { productSearchGetters, facetGetters } from '@/lib/getters'
+import { productSearchResultKeys } from '@/lib/react-query/queryKeys'
 import type { CategorySearchParams, CategoryTreeResponse } from '@/lib/types'
 
 import type { PrCategory, ProductSearchResult, Facet, Product, FacetValue } from '@/lib/gql/types'
@@ -59,7 +61,6 @@ export const getStaticProps: any = async (context: any) => {
 
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
   const category = await categoryTreeSearchByCode(context.params)
-
   return {
     props: {
       results: response?.data?.products || [],
@@ -103,12 +104,12 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
   const { section } = props
   const router = useRouter()
   const { publicRuntimeConfig } = getConfig()
-
+  const queryClient = useQueryClient()
   const { categoryCode } = router.query
   const [searchParams, setSearchParams] = useState<CategorySearchParams>(
     router.query as unknown as CategorySearchParams
   )
-  const { data: productSearchResult, isFetching } = useProductSearchQueries(
+  const { data: productSearchResult, isLoading } = useProductSearchQueries(
     searchParams,
     props.results
   )
@@ -139,7 +140,7 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
         },
       },
       undefined,
-      { scroll: false }
+      { scroll: false, shallow: true }
     )
   }
 
@@ -154,11 +155,14 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
         },
       },
       undefined,
-      { scroll: false }
+      { scroll: false, shallow: true }
     )
   }
 
   useEffect(() => {
+    const queryKey = productSearchResultKeys.searchParams(router.query)
+    queryClient.invalidateQueries({ queryKey, exact: true })
+
     setSearchParams(router.query as unknown as CategorySearchParams)
   }, [router.query])
 
@@ -173,7 +177,7 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
         totalResults={productSearchResult?.totalCount}
         pageSize={productSearchResult?.pageSize}
         breadCrumbsList={breadcrumbs}
-        isLoading={isFetching}
+        isLoading={isLoading}
         appliedFilters={appliedFilters as FacetValue[]}
         onSortItemSelection={changeSorting}
         onPaginationChange={changePagination}

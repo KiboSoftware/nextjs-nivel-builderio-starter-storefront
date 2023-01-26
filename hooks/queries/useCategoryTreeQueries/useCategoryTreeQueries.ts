@@ -44,6 +44,7 @@ export const useCategoryTreeQueries = (initialData: Maybe<PrCategory>[]): UseCat
     isSuccess,
   } = useQuery(categoryTreeKeys.all, fetchCategoryTree, {
     refetchOnMount: initialData ? false : true,
+    staleTime: 200,
   })
 
   return { data, isLoading, isSuccess }

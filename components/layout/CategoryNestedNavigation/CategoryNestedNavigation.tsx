@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 
 import { ArrowBackIos, ArrowForward, Close } from '@mui/icons-material'
 import {
@@ -97,7 +97,9 @@ const CategoryNestedNavigation = (props: CategoryNestedNavigationProps) => {
       })
     }
   }
-
+  useEffect(() => {
+    reset()
+  }, [categoryTree])
   return (
     <List
       sx={{ width: '100%', bgcolor: 'background.paper', pb: 0 }}

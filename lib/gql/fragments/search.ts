@@ -40,3 +40,37 @@ export const searchResults = /* GraphQL */ `
   ${searchFacets}
   ${productInfo}
 `
+export const searchResultsLite = /* GraphQL */ `
+  fragment searchResults on ProductSearchResult {
+    totalCount
+    pageSize
+    pageCount
+    startIndex
+    items {
+      productCode
+      variationProductCode
+      productUsage
+      content {
+        productName
+        productImages {
+          imageUrl
+          imageLabel
+          mediaType
+          altText
+        }
+        price {
+          price
+          salePrice
+        }
+        priceRange {
+          lower { price, salePrice}
+          upper { price, salePrice }
+        }
+    }
+    facets {
+      ...searchFacets
+    }
+  }
+  ${searchFacets}
+  ${productInfo}
+`

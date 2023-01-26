@@ -57,6 +57,7 @@ export const useProductSearchQueries = (
     () => fetchProductSearch(searchParams),
     {
       initialData,
+      staleTime: 100,
       refetchOnWindowFocus: false,
     }
   )
