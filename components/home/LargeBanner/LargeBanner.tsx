@@ -80,7 +80,7 @@ const LargeBanner = ({ bannerProps }: any) => {
           <CardMedia sx={styles.cardMediaStyle}>
             <KiboImage
               src={backgroundImageUrl}
-              alt={backgroundImageUrl ? 'abc' : 'product-image-alt'}
+              alt={backgroundImageUrl ? 'large-banner-image' : 'large-banner-image-alt'}
               layout="fill"
               objectFit="cover"
               data-testid="product-image"
@@ -90,19 +90,19 @@ const LargeBanner = ({ bannerProps }: any) => {
               <Typography
                 variant="h2"
                 sx={styles.nameStyle}
-                style={{ fontSize: mobileView ? '18px' : '36px' }}
+                style={{ fontSize: mobileView ? '1.125rem' : '2.25rem' }}
               >
                 {title}
               </Typography>
               <Typography
                 variant="h1"
                 sx={styles.subTitleStyle}
-                style={{ fontSize: mobileView ? '30px' : '60px' }}
+                style={{ fontSize: mobileView ? '1.875rem' : '3.75rem' }}
               >
                 {subtitle1}
               </Typography>
               <Typography
-                style={{ fontSize: mobileView ? '60px' : '120px' }}
+                style={{ fontSize: mobileView ? '3.75rem' : '7.5rem' }}
                 sx={styles.subTitleStyle}
               >
                 {subtitle2}

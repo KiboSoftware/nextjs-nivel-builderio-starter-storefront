@@ -3,6 +3,7 @@ import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
+import { cmsFeaturedCategoriesMock, cmsVehicleInnovationMock } from '@/__mocks__/stories'
 import CmsFeaturedCategories from '@/cms/components/CmsFeaturedCategories/CmsFeaturedCategories'
 import CmsVehicleInnovation from '@/cms/components/CmsVehicleInnovation/CmsVehicleInnovation'
 import { Title } from '@/components/common'
@@ -12,11 +13,6 @@ import { ProductRecommendations } from '@/components/product'
 import { CategorySlider } from '@/components/product-listing'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
-import InnovationBackgroundImage from '@/public/nivel-parts-footer-top-bkg-680.jpg'
-import EnclosuresAndCovers from '@/public/np-hp-featured-category-enclosures.jpg'
-import Lighting from '@/public/np-hp-featured-category-lighting.jpg'
-import Seating from '@/public/np-hp-featured-category-seating.jpg'
-import TopsAndWindshields from '@/public/np-hp-featured-category-windshields.jpg'
 import LargeBannerImage from '@/public/np_hp_twa_hero_bkg.jpg'
 
 import type { GetServerSidePropsContext } from 'next'
@@ -80,27 +76,7 @@ Builder.registerComponent(CmsVehicleInnovation, {
     {
       name: 'vehicleInnovationProps',
       type: 'object',
-      defaultValue: {
-        title: '50 Years of Specialty Vehicle Innovation',
-        subtitle: 'Its What Drives Us',
-        backgroundImageUrl: InnovationBackgroundImage,
-        mobileViewLinkTitle: 'Learn more about us',
-        mobileViewLinkUrl: '/',
-        footerChildrens: [
-          {
-            icon: 'emoji_events',
-            info: 'Our superior service sets us apart from the competition',
-          },
-          {
-            icon: 'headset_mic',
-            info: 'With the largest technical and customer support staff in the industry, we are here to help you, both before and after you place your order',
-          },
-          {
-            icon: 'local_shipping',
-            info: 'And we stock virtually everything we sell, ship 95% of our orders the same day, and deliver in 2 days.',
-          },
-        ],
-      },
+      defaultValue: cmsVehicleInnovationMock,
       subFields: [
         {
           name: 'title',
@@ -516,32 +492,7 @@ Builder.registerComponent(CmsFeaturedCategories, {
     {
       name: 'featuredCategories',
       type: 'list',
-      defaultValue: [
-        {
-          imgSource: EnclosuresAndCovers,
-          title: 'Enclosers & Covers',
-          buttonTitle: 'Shop Category',
-          buttonUrl: '/category/PAA-EC',
-        },
-        {
-          imgSource: Lighting,
-          title: 'Lighting',
-          buttonTitle: 'Shop Category',
-          buttonUrl: '/category/LIG',
-        },
-        {
-          imgSource: Seating,
-          title: 'Seating',
-          buttonTitle: 'Shop Category',
-          buttonUrl: '/category/SEA',
-        },
-        {
-          imgSource: TopsAndWindshields,
-          title: 'Tops & Windshields',
-          buttonTitle: 'Shop Category',
-          buttonUrl: '/category/TAW',
-        },
-      ],
+      defaultValue: cmsFeaturedCategoriesMock,
       subFields: [
         {
           name: 'imgSource',
@@ -564,6 +515,7 @@ Builder.registerComponent(CmsFeaturedCategories, {
     {
       name: 'title',
       type: 'string',
+      defaultValue: 'Featured Categories',
     },
   ],
 })
