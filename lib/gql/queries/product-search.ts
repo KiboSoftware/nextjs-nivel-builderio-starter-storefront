@@ -56,4 +56,4 @@ const searchProductsQueryLite = /* GraphQL */ `
   }
   ${searchResultsLite}
 `
-export default searchProductsQuery
+export default searchProductsQueryLite

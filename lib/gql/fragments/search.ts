@@ -41,7 +41,7 @@ export const searchResults = /* GraphQL */ `
   ${productInfo}
 `
 export const searchResultsLite = /* GraphQL */ `
-  fragment searchResults on ProductSearchResult {
+  fragment searchResultsLite on ProductSearchResult {
     totalCount
     pageSize
     pageCount
@@ -58,19 +58,25 @@ export const searchResultsLite = /* GraphQL */ `
           mediaType
           altText
         }
-        price {
+      }
+      price {
+        price
+        salePrice
+      }
+      priceRange {
+        lower {
           price
           salePrice
         }
-        priceRange {
-          lower { price, salePrice}
-          upper { price, salePrice }
+        upper {
+          price
+          salePrice
         }
+      }
     }
     facets {
       ...searchFacets
     }
   }
   ${searchFacets}
-  ${productInfo}
 `
