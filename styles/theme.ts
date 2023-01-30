@@ -71,7 +71,7 @@ const buttonStyleOverrides = {
 // Create a base theme instance and define the basic design options
 let theme = createTheme({
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'neue-haas-grotesk-display, sans-serif',
     h1: {
       fontSize: '1.75rem', // 28px
       fontWeight: 'bold',

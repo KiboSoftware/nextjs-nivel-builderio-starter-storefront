@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { forwardRef, ReactNode } from 'react'
 
 import getConfig from 'next/config'
-import Carousel from 'react-elastic-carousel'
+import Carousel, { ReactElasticCarouselProps } from 'react-elastic-carousel'
 
 import { ProductCard } from '@/components/product'
 import { useCategorySearchQueries } from '@/hooks'
@@ -17,13 +17,18 @@ const CategorySlider = (props: CategorySliderProps) => {
   const { publicRuntimeConfig } = getConfig()
   const { getCategoryLink } = uiHelpers()
   const { data: categorySearchResult } = useCategorySearchQueries(categoryCodes)
-  const categories = categorySearchResult?.items
+  const categories = categorySearchResult?.items || []
   const breakPoints = publicRuntimeConfig?.builderIO?.breakPoints
+
+  /* eslint-disable react/display-name */
+  const CustomCarousel = forwardRef<any, ReactElasticCarouselProps & { children: ReactNode[] }>(
+    (props, ref) => <Carousel ref={ref} {...props} />
+  )
 
   return (
     <>
-      {categoryCodes?.length > 0 && (
-        <Carousel isRTL={false} breakPoints={breakPoints}>
+      {categories?.length > 0 && (
+        <CustomCarousel isRTL={false} breakPoints={breakPoints}>
           {categories &&
             categories?.map((category: any) => {
               return (
@@ -39,7 +44,7 @@ const CategorySlider = (props: CategorySliderProps) => {
                 />
               )
             })}
-        </Carousel>
+        </CustomCarousel>
       )}
     </>
   )

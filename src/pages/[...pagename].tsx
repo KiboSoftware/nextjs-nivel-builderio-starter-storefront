@@ -1,8 +1,7 @@
 import { BuilderComponent, builder } from '@builder.io/react'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import getConfig from 'next/config'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import nextI18NextConfig from '../../next-i18next.config'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse } from '@/lib/types'
 
@@ -39,7 +38,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       page: page || null,
       categoriesTree,
-      ...(await serverSideTranslations(locale as string, ['common'], nextI18NextConfig)),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   }
 }

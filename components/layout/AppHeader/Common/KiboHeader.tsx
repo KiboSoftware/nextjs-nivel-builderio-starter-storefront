@@ -92,7 +92,6 @@ const headerActionAreaStyles = {
   },
   logoWrapper: {
     order: 0,
-    top: '-27px',
   },
 }
 

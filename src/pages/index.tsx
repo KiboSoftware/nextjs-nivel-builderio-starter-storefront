@@ -3,11 +3,17 @@ import getConfig from 'next/config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CmsHomePageProducts from '../../cms/components/CmsHomePageProducts/CmsHomePageProducts'
-import { KiboHeroCarousel, ContentTile, SmallBanner } from '@/components/home'
+import { cmsFeaturedCategoriesMock, cmsVehicleInnovationMock } from '@/__mocks__/stories'
+import CmsFeaturedCategories from '@/cms/components/CmsFeaturedCategories/CmsFeaturedCategories'
+import CmsVehicleInnovation from '@/cms/components/CmsVehicleInnovation/CmsVehicleInnovation'
+import { Title } from '@/components/common'
+import { KiboHeroCarousel, ContentTile, SmallBanner, LargeBanner } from '@/components/home'
 import { FullWidthLayout } from '@/components/layout'
 import { ProductRecommendations } from '@/components/product'
+import { CategorySlider } from '@/components/product-listing'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
+import LargeBannerImage from '@/public/np_hp_twa_hero_bkg.jpg'
 
 import type { GetServerSidePropsContext } from 'next'
 
@@ -60,6 +66,107 @@ Builder.registerComponent(SmallBanner, {
           type: 'string',
         },
       ],
+    },
+  ],
+})
+
+Builder.registerComponent(CmsVehicleInnovation, {
+  name: 'CmsVehicleInnovation',
+  inputs: [
+    {
+      name: 'vehicleInnovationProps',
+      type: 'object',
+      defaultValue: cmsVehicleInnovationMock,
+      subFields: [
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'subtitle',
+          type: 'string',
+        },
+        {
+          name: 'backgroundImageUrl',
+          type: 'any',
+        },
+        {
+          name: 'mobileViewLinkTitle',
+          type: 'string',
+        },
+        {
+          name: 'mobileViewLinkUrl',
+          type: 'string',
+        },
+        {
+          name: 'footerChildrens',
+          type: 'list',
+          subFields: [
+            {
+              name: 'icon',
+              type: 'string',
+            },
+            {
+              name: 'info',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+})
+
+Builder.registerComponent(LargeBanner, {
+  name: 'LargeBanner',
+  inputs: [
+    {
+      name: 'bannerProps',
+      type: 'object',
+      defaultValue: {
+        title: 'New & Improved',
+        subtitle1: 'Tire & Wheel',
+        subtitle2: 'Builder',
+        buttonTitle: 'Start Building',
+        buttonUrl: '/category/TWB',
+        backgroundImageUrl: LargeBannerImage,
+      },
+      subFields: [
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'subtitle1',
+          type: 'string',
+        },
+        {
+          name: 'subtitle2',
+          type: 'string',
+        },
+        {
+          name: 'buttonTitle',
+          type: 'string',
+        },
+        {
+          name: 'buttonUrl',
+          type: 'string',
+        },
+        {
+          name: 'backgroundImageUrl',
+          type: 'string',
+        },
+      ],
+    },
+  ],
+})
+
+Builder.registerComponent(CategorySlider, {
+  name: 'CategorySlider',
+  inputs: [
+    {
+      name: 'categoryCodes',
+      type: 'KiboCommerceCategoriesList',
     },
   ],
 })
@@ -144,7 +251,17 @@ Builder.registerComponent(ProductRecommendations, {
     },
     {
       name: 'productCodes',
-      type: 'KiboCommerceProduct', // 'ShopifyCollectionHandle',
+      type: 'KiboCommerceProductsList', // 'ShopifyCollectionHandle',
+    },
+  ],
+})
+
+Builder.registerComponent(Title, {
+  name: 'Title',
+  inputs: [
+    {
+      name: 'title',
+      type: 'string',
     },
   ],
 })
@@ -369,12 +486,46 @@ Builder.registerComponent(ContentTile, {
   ],
 })
 
+Builder.registerComponent(CmsFeaturedCategories, {
+  name: 'CmsFeaturedCategories',
+  inputs: [
+    {
+      name: 'featuredCategories',
+      type: 'list',
+      defaultValue: cmsFeaturedCategoriesMock,
+      subFields: [
+        {
+          name: 'imgSource',
+          type: 'string',
+        },
+        {
+          name: 'title',
+          type: 'string',
+        },
+        {
+          name: 'buttonTitle',
+          type: 'string',
+        },
+        {
+          name: 'buttonUrl',
+          type: 'string',
+        },
+      ],
+    },
+    {
+      name: 'title',
+      type: 'string',
+      defaultValue: 'Featured Categories',
+    },
+  ],
+})
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale } = context
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
   const page = await builder
-    .get('page', {
+    .get('nivels-page', {
       userAttributes: {
         urlPath: '/',
       },
