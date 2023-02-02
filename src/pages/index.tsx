@@ -568,7 +568,7 @@ Builder.registerComponent(CmsFeaturedCategories, {
   ],
 })
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale } = context
   const categoriesTree: any = await getCategoryTree()
   const { serverRuntimeConfig } = getConfig()
@@ -587,7 +587,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       categoriesTree,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
-    revalidate: serverRuntimeConfig.revalidate,
+    // revalidate: serverRuntimeConfig.revalidate,
   }
 }
 
