@@ -27,7 +27,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
   const page = await builder
-    .get('page', {
+    .get('nivels-page', {
       userAttributes: {
         urlPath: `/${pagename}`,
       },
@@ -62,7 +62,9 @@ const PageNotFound = () => {
 const Page = (props: any) => {
   const { page } = props
 
-  return <div>{page ? <BuilderComponent model="page" content={page} /> : <PageNotFound />}</div>
+  return (
+    <div>{page ? <BuilderComponent model="nivels-page" content={page} /> : <PageNotFound />}</div>
+  )
 }
 
 export default Page

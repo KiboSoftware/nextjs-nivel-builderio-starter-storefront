@@ -40,13 +40,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const product = await getProduct(productCode)
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
 
-  // const section = await builder
-  //   .get('kibosection', { userAttributes: { slug: productCode } })
-  //   .promise()
+  const section = await builder
+    .get('nivels-pdp-section', { userAttributes: { slug: productCode } })
+    .promise()
 
   return {
     props: {
       product,
+      section,
       categoriesTree,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
@@ -78,7 +79,7 @@ const ProductDetailPage: NextPage = (props: any) => {
   return (
     <>
       <ProductDetailTemplate product={product} breadcrumbs={breadcrumbs}>
-        {section && <BuilderComponent model="pdpsection" content={section} />}
+        {section && <BuilderComponent model="nivels-pdp-section" content={section} />}
       </ProductDetailTemplate>
     </>
   )

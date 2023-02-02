@@ -61,8 +61,16 @@ export const getStaticProps: any = async (context: any) => {
 
   const categoriesTree: CategoryTreeResponse = await getCategoryTree()
   const category = await categoryTreeSearchByCode(context.params)
+  const section =
+    (await builder
+      .get('nivels-category-section', {
+        userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
+      })
+      .promise()) || null
+
   return {
     props: {
+      section,
       results: response?.data?.products || [],
       categoriesTree,
       category,
@@ -82,13 +90,6 @@ export const getStaticProps: any = async (context: any) => {
 //   const category = await categoryTreeSearchByCode(context.query)
 
 //   // res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
-
-//   const section =
-//     (await builder
-//       .get('category-section', {
-//         userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
-//       })
-//       .promise()) || null
 
 //   return {
 //     props: {
@@ -182,7 +183,7 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
         onSortItemSelection={changeSorting}
         onPaginationChange={changePagination}
       >
-        {section && <BuilderComponent model="category-section" content={section} />}
+        {section && <BuilderComponent model="nivels-category-section" content={section} />}
       </ProductListingTemplate>
     </>
   )
