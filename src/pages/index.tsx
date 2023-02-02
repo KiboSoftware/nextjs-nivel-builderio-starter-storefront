@@ -595,7 +595,7 @@ const Home: NextPageWithLayout<HomePageProps> = (props) => {
   const { page } = props
   return (
     <>
-      <BuilderComponent model="page" content={page} />
+      <BuilderComponent model="nivels-page" content={page} />
     </>
   )
 }
