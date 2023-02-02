@@ -47,7 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       product,
-      section,
+      section: section || null,
       categoriesTree,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
