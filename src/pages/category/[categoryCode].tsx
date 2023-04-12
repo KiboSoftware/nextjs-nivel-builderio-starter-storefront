@@ -63,7 +63,7 @@ export const getStaticProps: any = async (context: any) => {
 
   const section =
     (await builder
-      .get('category-section', {
+      .get('nivels-category-section', {
         userAttributes: { slug: category?.categories?.[0]?.content?.slug as any },
       })
       .promise()) || null
@@ -158,7 +158,7 @@ const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
         onSortItemSelection={changeSorting}
         onPaginationChange={changePagination}
       >
-        {section && <BuilderComponent model="category-section" content={section} />}
+        {section && <BuilderComponent model="nivels-category-section" content={section} />}
       </ProductListingTemplate>
     </>
   )
