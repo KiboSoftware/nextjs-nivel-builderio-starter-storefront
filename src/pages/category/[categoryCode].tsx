@@ -33,6 +33,11 @@ export async function getStaticPaths() {
     }
     return categoryCodes
   }
+
+  const categoriesTree: CategoryTreeResponse = await getCategoryTree()
+  const getAllCategoryCodes = (categoryTree: any) => categoryTree.flatMap((c: any) => walk(c))
+  const paths = getAllCategoryCodes(categoriesTree).map((code: string) => `/category/${code}`)
+  return { paths, fallback: true }
 }
 const { publicRuntimeConfig } = getConfig()
 const builderIOApiKey = publicRuntimeConfig?.builderIO?.apiKey
@@ -78,7 +83,6 @@ export const getStaticProps: any = async (context: any) => {
 const CategoryPage: NextPage<CategoryPageType> = (props: any) => {
   const { section } = props
   const router = useRouter()
-  const { publicRuntimeConfig } = getConfig()
 
   const { categoryCode } = router.query
   const [searchParams, setSearchParams] = useState<CategorySearchParams>(
